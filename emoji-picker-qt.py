@@ -303,7 +303,7 @@ class EmojiPickerWindow(QWidget):
         global settingsFile
         global historyList
         settingsFile = QSettings("emoji-picker-qtpy", "history");
-        historyList = settingsFile.value('history/history')
+        historyList = settingsFile.value('history/history') or []
 
     # key handling
     keyPressed = pyqtSignal(int)
