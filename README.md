@@ -1,6 +1,6 @@
 just picking this up as a personal project to help out a friend.
 
-i do think i want to use this instead eventually: https://github.com/muan/emojilib/blob/main/dist/emoji-en-US.json
+sourced emojis from https://github.com/muan/emojilib/blob/main/dist/emoji-en-US.json
 
 original readme below
 

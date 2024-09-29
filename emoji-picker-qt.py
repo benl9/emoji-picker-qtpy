@@ -1,11 +1,8 @@
 #!/usr/bin/python
 # Copyright (c) 2020 Maryushi3
 
-import emoji_data_python as edp
 import sys
 import pyautogui
-import json
-import pathlib
 from Xlib import display
 from PyQt5.QtWidgets import (
     QApplication,
@@ -20,6 +17,7 @@ from PyQt5.QtWidgets import (
 from PyQt5.QtCore import QEvent, QSettings, Qt, pyqtSignal
 from PyQt5.QtGui import QFont
 from PyQt5 import QtTest
+from emojis import allEmojis
 
 # globals
 emojiGridLayout = None
@@ -37,9 +35,6 @@ settingsFile = None
 historyList = []
 foundAnyEmoji = True
 layoutStack = None
-
-emojiJson = json.load(open(pathlib.Path(__file__).parent / './emoji.json'))
-allEmojis = {x['emoji']: [x['description']] + x['aliases'] + x['tags'] for x in emojiJson}
 
 font = QFont()
 font.setPointSize(emojiFontSize)
@@ -125,9 +120,6 @@ def execute_search(text):
     if not text or text.isspace():
         fill_grid_with_history()
         return
-
-    # foundEmoji = edp.find_by_name(text)
-    # charList = [emoji.char for emoji in foundEmoji]
 
     charList = [k for k, v in allEmojis.items() if any(text in x for x in v)]
     fill_grid_with_char_list(charList)
