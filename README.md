@@ -1,3 +1,5 @@
+just picking this up as a personal project to help out a friend. original readme below
+
 # emoji-picker-qtpy
 PyQt5-🅱️ased emoji picker
 
