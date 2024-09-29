@@ -30,7 +30,7 @@ lastRowEmojiCount = 0
 emojiFontSize = 20
 selectedEmojiPosition = list((0, 0))
 willExitOnItsOwn = False
-selectedEmojiChar = ""
+selectedEmojiChar = ''
 settingsFile = None
 historyList = []
 foundAnyEmoji = True
@@ -49,7 +49,7 @@ def quitNicely():
 # gets mouse position from Xlib
 def mousePosition():
     pointerData = display.Display().screen().root.query_pointer()._data
-    return pointerData["root_x"], pointerData["root_y"]
+    return pointerData['root_x'], pointerData['root_y']
 
 
 # copies and pastes selected emoji
@@ -59,7 +59,7 @@ def execute_emoji(char):
     willExitOnItsOwn = True
     mainWindow.hide()
     QApplication.clipboard().setText(char)
-    pyautogui.hotkey("ctrl", "v")
+    pyautogui.hotkey('ctrl', 'v')
     QtTest.QTest.qWait(250)
     quit()
 
@@ -188,7 +188,7 @@ def highlight_emoji(newPosition):
     widgetToDeselect = emojiGridLayout.itemAtPosition(oldPosition[0], oldPosition[1])
     if widgetToDeselect:
         widgetToDeselect = widgetToDeselect.widget()
-        widgetToDeselect.setStyleSheet("")
+        widgetToDeselect.setStyleSheet('')
 
     global selectedEmojiChar
     widgetToSelect = emojiGridLayout.itemAtPosition(
@@ -197,18 +197,18 @@ def highlight_emoji(newPosition):
     if widgetToSelect:
         widgetToSelect = widgetToSelect.widget()
         selectedEmojiChar = widgetToSelect.text()
-        widgetToSelect.setStyleSheet("QLabel{background-color: palette(highlight);}")
+        widgetToSelect.setStyleSheet('QLabel{background-color: palette(highlight);}')
 
 
 # handles direction where to move emoji selection
 def move_selection(direction):
-    if direction == "right":
+    if direction == 'right':
         highlight_emoji([sum(x) for x in zip(selectedEmojiPosition, [0, 1])])
-    elif direction == "left":
+    elif direction == 'left':
         highlight_emoji([sum(x) for x in zip(selectedEmojiPosition, [0, -1])])
-    elif direction == "up":
+    elif direction == 'up':
         highlight_emoji([sum(x) for x in zip(selectedEmojiPosition, [-1, 0])])
-    elif direction == "down":
+    elif direction == 'down':
         highlight_emoji([sum(x) for x in zip(selectedEmojiPosition, [1, 0])])
 
 
@@ -233,7 +233,7 @@ def add_char_to_history(char):
         tempList.extend(historyList)
         historyList = tempList[: (emojiGridColumnCount * emojiGridRowCount)]
 
-    settingsFile.setValue("history/history", historyList)
+    settingsFile.setValue('history/history', historyList)
 
 
 # wrapper around filling the grid
@@ -249,7 +249,7 @@ class EmojiPickerWindow(QWidget):
         # focus handling
         self.installEventFilter(self)
 
-        self.title = "Emoji picker ＼(^o^)／"
+        self.title = 'Emoji picker ＼(^o^)／'
         self.width = 281
         self.height = 251
 
@@ -288,7 +288,7 @@ class EmojiPickerWindow(QWidget):
         layoutStack.addWidget(scrollArea)
 
         # info to show when no emoji has been found
-        noEmojiFoundLabel = QLabel("No emoji found 🙁")
+        noEmojiFoundLabel = QLabel('No emoji found 🙁')
         noEmojiFoundLabel.setAlignment(
             Qt.AlignCenter | Qt.AlignHCenter | Qt.AlignVCenter
         )
@@ -325,8 +325,8 @@ class EmojiPickerWindow(QWidget):
     def initSettings(self):
         global settingsFile
         global historyList
-        settingsFile = QSettings("emoji-picker-qtpy", "history")
-        historyList = settingsFile.value("history/history") or []
+        settingsFile = QSettings('emoji-picker-qtpy', 'history')
+        historyList = settingsFile.value('history/history') or []
 
     # key handling
     keyPressed = pyqtSignal(int)
@@ -365,13 +365,13 @@ class QLineEditWithArrows(QLineEdit):
         global selectedEmojiChar
         global foundAnyEmoji
         if ev.key() == Qt.Key_Right:
-            move_selection("right")
+            move_selection('right')
         if ev.key() == Qt.Key_Left:
-            move_selection("left")
+            move_selection('left')
         if ev.key() == Qt.Key_Up:
-            move_selection("up")
+            move_selection('up')
         if ev.key() == Qt.Key_Down:
-            move_selection("down")
+            move_selection('down')
         if ev.key() == Qt.Key_Return or ev.key() == Qt.Key_Enter:
             if foundAnyEmoji:
                 execute_emoji(selectedEmojiChar)
@@ -383,7 +383,7 @@ class QLineEditWithArrows(QLineEdit):
             QLineEdit.keyPressEvent(self, ev)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = EmojiPickerWindow()
     sys.exit(app.exec_())
